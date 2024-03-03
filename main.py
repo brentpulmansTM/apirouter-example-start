@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import config
 import database
-import models
+from models import models
 from queries import festival_queries as queries
 
 app = FastAPI(docs_url=config.documentation_url)
