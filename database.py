@@ -1,35 +1,37 @@
-import mysql.connector
+import psycopg2
 import config
 
 def connect_to_database():
     try:
-        connection = mysql.connector.connect(host=config.db_hostname, user=config.db_username, password=config.db_password)
+        connection = psycopg2.connect(dsn=config.db_connection)
         return connection
-    except mysql.connector.Error as error:
-        print("Error connecting to database:", error)
-        return error
+    except psycopg2.Error as error:
+        print("Error connecting to the database:", error)
+        return None
 
-def execute_sql_query(sql_query, query_parameters = None):
+def execute_sql_query(sql_query, query_parameters=None):
     connection = connect_to_database()
-    result=''
+    if not connection:
+        return "Connection Error"
+
+    result = None
     try:
         cursor = connection.cursor()
         cursor.execute(sql_query, query_parameters)
-        if sql_query.upper().startswith("SELECT"):
+
+        if sql_query.strip().upper().startswith("SELECT"):
+            # Execute SELECT queries for GET requests
             result = cursor.fetchall()
         else:
+            # Execute non-SELECT queries (e.g., INSERT, UPDATE, DELETE) for POST requests
             connection.commit()
             result = True
 
         cursor.close()
-
-    except mysql.connector.Error as exception:
+    except psycopg2.Error as exception:
         print("Error executing SQL query:", exception)
         result = exception
-
-
     finally:
-        if connection.is_connected():
-            connection.close()
+        connection.close()
 
         return result
