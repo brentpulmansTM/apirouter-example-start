@@ -46,8 +46,8 @@ def get_all_festivals_by_name_and_month(name: str, month: int):
     query = queries.festivals_by_name_and_month_query
     festivals = database.execute_sql_query(query, (
         '%{}%'.format(name),
-        month,
-        month,
+        str(month),
+        str(month),
     ))
     if isinstance(festivals, Exception):
         return festivals, 500

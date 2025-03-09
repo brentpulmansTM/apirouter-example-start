@@ -1,9 +1,9 @@
-import psycopg2
+import psycopg
 import config
 
 def connect_to_database():
     try:
-        connection = psycopg2.connect(dsn=config.db_connection)
+        connection = psycopg2.connect(config.db_connection)
         return connection
     except psycopg2.Error as error:
         print("Error connecting to the database:", error)
