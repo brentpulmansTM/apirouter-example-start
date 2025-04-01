@@ -3,9 +3,9 @@ import config
 
 def connect_to_database():
     try:
-        connection = psycopg2.connect(config.db_connection)
+        connection = psycopg.connect(config.db_connection)
         return connection
-    except psycopg2.Error as error:
+    except psycopg.Error as error:
         print("Error connecting to the database:", error)
         return None
 
@@ -28,7 +28,7 @@ def execute_sql_query(sql_query, query_parameters=None):
             result = True
 
         cursor.close()
-    except psycopg2.Error as exception:
+    except psycopg.Error as exception:
         print("Error executing SQL query:", exception)
         result = exception
     finally:
