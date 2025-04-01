@@ -72,5 +72,7 @@ def create_festival(festival: models.Festival):
         festival.province,
         festival.comment,
     ))
-    if success:
-        return festival
+    if success == True:
+        return festival    
+    else:
+        return {"error": "Something went wrong. Check the terminal for more information."}
