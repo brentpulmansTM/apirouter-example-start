@@ -46,3 +46,13 @@ pip install -r requirements.txt
 ```
 
 This command installs all the packages listed in the `requirements.txt` file.
+
+## Add a .env file
+
+Add your own .env file to your repository. You can make use of the following content to start from and change the values to your own values (e.g. your own connection string to Neon).
+
+```
+DB_CONNECTION=your_neon_connection_string
+DOCS_URL=/docs
+ALLOWED_ORIGINS="http://localhost,https://localhost,http://127.0.0.1:8080,https://127.0.0.1:8080,https://mysite.netlify.app"
+```
